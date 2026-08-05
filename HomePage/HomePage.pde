@@ -22,6 +22,7 @@ void draw(){
     drawBackground();
     drawScreen();
     drawControls();
+    drawArrows();
     drawText(); 
     if(contactOpen){
         drawContactInfo();
@@ -98,6 +99,13 @@ void drawText(){
     fill(0,0,0);
     text("Power",90,750);
 
+}
+
+void drawArrows(){
+    stroke(207, 27, 189);
+    triangle(560,415,580,425,560,435);
+    triangle(560,490,580,500,560,510);
+    noStroke();
 }
 
 void drawControls(){
