@@ -107,7 +107,7 @@ void drawSudoku() {
 
 void startGame(){
     int sx = mouseX - 480;
-    int sy = mouseY - 50;
+    int sy = mouseY - 60;
 
   //background(255, 229, 240);
   stroke(0);
@@ -197,7 +197,7 @@ void gameEnded(){
 
 void setGameDifficulty(int [][] board){
     int sx = mouseX - 480;
-    int sy = mouseY - 50;
+    int sy = mouseY - 60;
   
   if(sx > 70 && sx < 170 && sy > 400 && sy < 450){
     engine.copyBoard(board, fullBoard);
@@ -373,7 +373,7 @@ void colorNumbers(){
 void mousePressedSudoku() {
 
     int sx = mouseX - 480;
-    int sy = mouseY - 50;
+    int sy = mouseY - 60;
    
 
   if(!gameStarted){

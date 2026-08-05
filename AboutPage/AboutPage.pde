@@ -124,9 +124,11 @@ void drawTextandPic(){
     
     fill(130, 17, 66); 
     textSize(20);
-    text("EXPLORE SITE", 1025, 450);
-    text("KRABBY PATTY CATCHER", 1025, 500);
-    text("SUDOKU", 1025, 550);
+    text("EXPLORE SITE", 1000, 450);
+    text("PLAY GAMES", 1000, 500);
+    textSize(10);
+    text("KRABBY PATTY CATCHER", 1020, 530);
+    text("SUDOKU", 1020, 550);
 }
 
 void drawControls(){
