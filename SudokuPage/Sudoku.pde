@@ -2,18 +2,22 @@ SudokuGame engine;
 
 int[][] displayBoard;
 int [][] fullBoard;
-int cellSize = 60;
+int cellSize = 70;
 
 int selectedRow = -1;
 int selectedCol = -1;
 int selectedNumber = 0;
-float sWidth = 540;
+float sWidth = 630;
 float sHeight = 690;
 boolean gameStarted = false;
 boolean gameWon = false;
 String difficulty = "";
 int errors = 0;
 PFont garamond;
+int startTime;
+int elapsedTime;
+int seconds;
+int gameTime;
 
 
 
@@ -29,62 +33,93 @@ void setupSudoku() {
   
   engine.copyBoard(displayBoard, fullBoard);
   engine.easyBoard(displayBoard);
+  startTime = millis();
+  elapsedTime = 0;
+  garamond = createFont("Garamond", 128);
+
   
 }
 
 void drawSudoku() {
     pushMatrix();
     pushStyle();
-    translate(480,60);
+    translate(435,50);
     
-  if(gameWon){
-    gameEnded();
-  }
-  else if(!gameStarted){
+  if(!gameStarted){
     startGame();
   }
   else{
+    
+    if(engine.completedBoard(displayBoard, fullBoard)){
+      gameWon = true;
+    }
+    
     textAlign(CENTER,CENTER);
     textFont(garamond);
     //background(255, 229, 240);
-    int sx = mouseX - 480;
+    int sx = mouseX - 435;
     int sy = mouseY - 50;
     textSize(20);
-    fill(0);
-    text("Back", 30, 20);
-    if(sx > 0 && sx < 60 && sy > 0 && sy < 30){
-      fill(255, 0, 0);
-      text("Back", 30, 20);
+
+    noFill();
+    stroke(201, 149, 0);
+    rect(-200,300,100,50, 28);
+    textAlign(CENTER,CENTER);
+    textSize(20);
+    text("Hint", -150, 325);
+    if(sx > -200 && sx < -100 && sy > 300 && sy < 350){
+      fill(255, 218, 112);
+      rect(-200,300,100,50, 28);
+      fill(0);
+      text("Hint", -150, 325);
     }
 
+    noFill();
+    stroke(255, 0, 0);
+    rect(-210,400,120,50, 28);
+    textAlign(CENTER,CENTER);
     textSize(20);
-    fill(0);
-    text("Errors: ", 480, 20);
-    fill(255, 0, 0);
-    text(errors, 520, 20);
-    
-
-
-
-    
-    textSize(30);
-    if(difficulty.equals("Easy")){
+    text("End Game", -150, 425);
+    if(sx > -210 && sx < -90 && sy > 400 && sy < 450){
+      fill(255, 110, 110);
+      rect(-210,400,120,50, 28);
       fill(0);
-      text("Level: ", sWidth/2-30, 20);
+      text("End Game", -150, 425);
+    }
+
+
+
+    textSize(40);
+    fill(0);
+    if(!gameWon){
+      elapsedTime = (millis() - startTime) / 1000;
+    }
+
+    int minutes = elapsedTime / 60;
+    int seconds = elapsedTime % 60;
+
+    text("Time: " + nf(minutes, 2) + ":" + nf(seconds, 2), 750, 100);
+      
+    text("Errors: ", 720, 150);
+    fill(255, 0, 0);
+    text(errors, 800, 150);
+    
+
+
+
+    textAlign(CENTER,CENTER);
+    textSize(40);
+    if(difficulty.equals("Easy")){
       fill(12,140,0);
-      text(difficulty, sWidth/2 + 45, 20);
+      text(difficulty, sWidth/2, 25);
     }
     if(difficulty.equals("Medium")){
-      fill(0);
-      text("Level: ", sWidth/2-50, 20);
       fill(224, 123, 0);
-      text(difficulty, sWidth/2 + 40, 20);
+      text(difficulty, sWidth/2, 25);
     }
     if(difficulty.equals("Hard")){
-      fill(0);
-      text("Level: ", sWidth/2-30, 20);
       fill(255, 0, 0);
-      text(difficulty, sWidth/2 + 45, 20);
+      text(difficulty, sWidth/2, 25);
     }
     
     
@@ -93,10 +128,14 @@ void drawSudoku() {
     drawNumbers();
     displayNumbers();
 
-    if(engine.completedBoard(displayBoard, fullBoard)){
-      gameWon = true;
+    
+
+    if(gameWon){
+    gameEnded();
     }
   }
+
+ 
 
   popStyle();  
   popMatrix();
@@ -106,33 +145,32 @@ void drawSudoku() {
 
 
 void startGame(){
-    int sx = mouseX - 480;
-    int sy = mouseY - 60;
+    int sx = mouseX - 435;
+    int sy = mouseY - 50;
 
   //background(255, 229, 240);
   stroke(0);
   strokeWeight(2);
 
-  garamond = createFont("Garamond", 128);
   textFont(garamond);
   textAlign(CENTER, TOP);
-  textSize(40);
-  text("Play Sudoku", sWidth/2, 50);
+  textSize(70);
+  text("Play Sudoku", sWidth/2, 40);
   
   fill(255, 176, 214);
-  rect(170, 240, 200, 100, 28);
+  rect(sWidth/2 - 150, 220, 300, 100, 28);
   fill(0);
   textAlign(CENTER, CENTER);
-  textSize(30);
-  text("Start Game", 270, 290);
+  textSize(40);
+  text("Start Game", sWidth/2, 270);
 
-  if(sx > 170 && sx < 370 && sy > 240 && sy < 340){
+  if(sx > sWidth/2 - 150 && sx < sWidth/2 + 150 && sy > 220 && sy < 320){
       fill(255, 87, 162);
-      rect(170, 240, 200, 100, 28);
+      rect(sWidth/2 - 150, 220, 300, 100, 28);
       fill(0);
       textAlign(CENTER, CENTER);
-      textSize(30);
-      text("Start Game", 270, 290);
+      textSize(40);
+      text("Start Game", sWidth/2, 270);
   }
 
   if(difficulty.equals("Easy")){
@@ -141,11 +179,11 @@ void startGame(){
   else{
     fill(255, 176, 214);
   }
-  rect(70, 400, 100, 50, 28);
+  rect(sWidth/2 - 260, 430, 140, 70, 28);
   fill(0);
   textAlign(CENTER, CENTER);
-  textSize(20);
-  text("Easy", 120, 425);
+  textSize(30);
+  text("Easy", sWidth/2 - 190, 465);
 
   if(difficulty.equals("Medium")){
     fill(255, 87, 162);
@@ -153,11 +191,11 @@ void startGame(){
   else{
     fill(255, 176, 214);
   }
-  rect(220, 400, 100, 50, 28);
+  rect(sWidth/2 - 70, 430, 140, 70, 28);
   fill(0);
   textAlign(CENTER, CENTER);
-  textSize(20);
-  text("Medium", 270, 425);
+  textSize(30);
+  text("Medium", sWidth/2, 465);
 
   if(difficulty.equals("Hard")){
     fill(255, 87, 162);
@@ -165,20 +203,20 @@ void startGame(){
   else{
     fill(255, 176, 214);
   }
-  rect(370, 400, 100, 50, 28);
+  rect(sWidth/2 + 120, 430, 140, 70, 28);
   fill(0);
   textAlign(CENTER, CENTER);
-  textSize(20);
-  text("Hard", 420, 425);
+  textSize(30);
+  text("Hard", sWidth/2 + 190, 465);
  
 }
 
 void gameEnded(){
-  delay(300);
-  stroke(0);
-  strokeWeight(1);
-  fill(103, 191, 235);
-  rect(70, 195, 400, 300, 20);
+  textFont(garamond);
+  stroke(0, 110, 0);
+  strokeWeight(4);
+  fill(140, 255, 140);
+  rect(sWidth/2 - 200, 195, 400, 300, 20);
   textAlign(CENTER, CENTER);
   textSize(50);
   fill(255, 0, 0);
@@ -196,20 +234,20 @@ void gameEnded(){
 }
 
 void setGameDifficulty(int [][] board){
-    int sx = mouseX - 480;
-    int sy = mouseY - 60;
+    int sx = mouseX - 435;
+    int sy = mouseY - 50;
   
-  if(sx > 70 && sx < 170 && sy > 400 && sy < 450){
+  if(sx > sWidth/2 - 260 && sx < sWidth/2 - 120 && sy > 430 && sy < 500){
     engine.copyBoard(board, fullBoard);
     difficulty = "Easy";
     engine.easyBoard(board);
   }
-  else if(sx > 220 && sx < 320 && sy > 400 && sy < 450){
+  else if(sx > sWidth/2 - 70 && sx < sWidth/2 + 70 && sy > 430 && sy < 500){
     engine.copyBoard(board, fullBoard);
     difficulty = "Medium";
     engine.mediumBoard(board);
   }
-  else if(sx > 370 && sx < 480 && sy > 400 && sy < 450){
+  else if(sx > sWidth/2 + 120 && sx < sWidth/2 + 260 && sy > 430 && sy < 500){
     engine.copyBoard(board, fullBoard);
     difficulty = "Hard";
     engine.hardBoard(board);
@@ -225,7 +263,7 @@ void drawGrid() {
     } else {
       strokeWeight(1);
     }
-    line(i * cellSize, 50, i * cellSize, 590);
+    line(i * cellSize, 50, i * cellSize, 680);
     line(0, i * cellSize + 50, sWidth, i * cellSize + 50);
   }
 }
@@ -233,7 +271,8 @@ void drawGrid() {
 void drawNumbers() {
   textAlign(CENTER, CENTER);
   textSize(32);
-  fill(0);
+  
+  
   
   for (int row = 0; row < 9; row++) {
     for (int col = 0; col < 9; col++) {
@@ -256,135 +295,99 @@ void displayNumbers(){
   textSize(32);
   fill(0);
 
-  float displayY = 620;
-  float itemsWidth = sWidth / 9.0;
+  float displayX = 650;
+  float displayY = 250;
+  float buttonSize = 70;
+  float gap = 10;
 
-  int sx = mouseX - 480;
-    int sy = mouseY - 50;
+  int sx = mouseX - 435;
+  int sy = mouseY - 50;
   for (int i = 1; i <= 9; i++) {
-    float x = (i - 1) * itemsWidth + itemsWidth / 2;
-    boolean isHovering = sx > (i - 1) * itemsWidth && sx < i * itemsWidth && sy > 620 && sy < 670;
+    int row = (i - 1) / 3;
+    int col = (i - 1) % 3;
+
+    float x = displayX + col * (buttonSize + gap);
+    float y = displayY + row * (buttonSize + gap);
+    boolean isHovering = sx > x && sx < x + buttonSize && sy > y && sy < y + buttonSize;
     if(mousePressed && isHovering){
       fill(255, 227, 200);
       noStroke();
-      rect((i - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50,12);
+      rect(x, y, buttonSize, buttonSize,12);
     }
     
     fill(0); 
-    text(i, x, displayY + 25);
+    text(i, x + buttonSize/2, y + buttonSize/2);
     noFill();   
     stroke(0);
     strokeWeight(2);
-    rect((i - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50, 12);
+    rect(x,y, buttonSize, buttonSize, 12);
   }
   colorNumbers();
   
 }
 
-void colorNumbers(){
-  float displayY = 620;
-  float itemsWidth = sWidth / 9.0;
-  
-  if(engine.allNums(engine.countOnes(displayBoard, fullBoard))){
-     
-      fill(186, 186, 186);
-      stroke(0);
-      strokeWeight(2);
-      rect((1 - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50,12);
-      fill(0);
-      text(1, (1 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
-      
+void colorNumbers() {
 
+  float startX = 650;
+  float startY = 250;
+
+  float buttonSize = 70;
+  float gap = 10;
+
+  for (int i = 1; i <= 9; i++) {
+
+    boolean completed = false;
+
+    switch(i) {
+      case 1: completed = engine.allNums(engine.countOnes(displayBoard, fullBoard)); break;
+      case 2: completed = engine.allNums(engine.countTwos(displayBoard, fullBoard)); break;
+      case 3: completed = engine.allNums(engine.countThrees(displayBoard, fullBoard)); break;
+      case 4: completed = engine.allNums(engine.countFours(displayBoard, fullBoard)); break;
+      case 5: completed = engine.allNums(engine.countFives(displayBoard, fullBoard)); break;
+      case 6: completed = engine.allNums(engine.countSixes(displayBoard, fullBoard)); break;
+      case 7: completed = engine.allNums(engine.countSevens(displayBoard, fullBoard)); break;
+      case 8: completed = engine.allNums(engine.countEights(displayBoard, fullBoard)); break;
+      case 9: completed = engine.allNums(engine.countNines(displayBoard, fullBoard)); break;
     }
 
-    if(engine.allNums(engine.countTwos(displayBoard, fullBoard))){
-      fill(186, 186, 186);
-      stroke(0);
-      strokeWeight(2);
-      rect((2 - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50, 12);
-      fill(0);
-      text(2, (2 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
-    }
+    if (completed) {
 
-    if(engine.allNums(engine.countThrees(displayBoard, fullBoard))){
-      fill(186, 186, 186);
-      stroke(0);
-      strokeWeight(2);
-      rect((3 - 1) * itemsWidth + 5, displayY , itemsWidth - 10, 50, 12);
-      fill(0);
-      text(3, (3 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
-    }
+      int row = (i - 1) / 3;
+      int col = (i - 1) % 3;
 
-    if(engine.allNums(engine.countFours(displayBoard, fullBoard))){
-      fill(186, 186, 186);
-      stroke(0);
-      strokeWeight(2);
-      rect((4 - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50, 12);
-      fill(0);
-      text(4, (4 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
-    }
+      float x = startX + col * (buttonSize + gap);
+      float y = startY + row * (buttonSize + gap);
 
-    if(engine.allNums(engine.countFives(displayBoard, fullBoard))){
-      fill(186, 186, 186);
+      fill(186);
       stroke(0);
       strokeWeight(2);
-      rect((5 - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50, 12);
-      fill(0);
-      text(5, (5 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
-    }
+      rect(x, y, buttonSize, buttonSize, 12);
 
-    if(engine.allNums(engine.countSixes(displayBoard, fullBoard))){
-      fill(186, 186, 186);
-      stroke(0);
-      strokeWeight(2);
-      rect((6 - 1) * itemsWidth + 5, displayY , itemsWidth - 10, 50, 12);
       fill(0);
-      text(6, (6 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
+      text(i, x + buttonSize/2, y + buttonSize/2);
     }
-
-    if(engine.allNums(engine.countSevens(displayBoard, fullBoard))){
-      fill(186, 186, 186);
-      stroke(0);
-      strokeWeight(2);
-      rect((7 - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50, 12);
-      fill(0);
-      text(7, (7 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
-    }
-
-    if(engine.allNums(engine.countEights(displayBoard, fullBoard))){
-      fill(186, 186, 186);
-      stroke(0);
-      strokeWeight(2);
-      rect((8 - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50, 12);
-      fill(0);
-      text(8, (8 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
-    }
-
-    if(engine.allNums(engine.countNines(displayBoard, fullBoard))){
-      fill(186, 186, 186);
-      stroke(0);
-      strokeWeight(2);
-      rect((9 - 1) * itemsWidth + 5, displayY, itemsWidth - 10, 50, 12);
-      fill(0);
-      text(9, (9 - 1) * itemsWidth + itemsWidth / 2, displayY + 25);
-    }
+  }
 }
-
 void mousePressedSudoku() {
 
-    int sx = mouseX - 480;
-    int sy = mouseY - 60;
+    int sx = mouseX - 435;
+    int sy = mouseY - 50;
    
 
   if(!gameStarted){
     setGameDifficulty(displayBoard);
 
-    if(sx > 170 && sx < 370 && sy > 240 && sy < 340){
+    if(sx > sWidth/2 - 150 && sx < sWidth/2 + 150 && sy > 240 && sy < 340){
       gameStarted = true;
+      startTime = millis();
+      elapsedTime = 0;
     }
   }
+  if(sx > -200 && sx < -100 && sy > 300 && sy < 350){
+    giveHint();
+  }
 
-  if(sx > 0 && sx < 60 && sy > 0 && sy < 30){
+  if(sx > -210 && sx < -90 && sy > 400 && sy < 450){
     gameWon = false;
     gameStarted = false;
     selectedRow = -1;
@@ -394,9 +397,11 @@ void mousePressedSudoku() {
     engine.copyBoard(displayBoard, fullBoard);
     difficulty = "Easy";
     engine.easyBoard(displayBoard);
+    startTime = millis();
+    elapsedTime = 0;
   }
 
-  if (sy < 590 && sy >= 50) {
+  if (sx >= 0 && sx < sWidth && sy >= 50 && sy < 680) {
     int r = (int)(sy - 50) / cellSize;
     int c = (int)sx / cellSize;
   
@@ -431,11 +436,24 @@ void mousePressedSudoku() {
      }
   } 
 
-  else if(sy>620 && sy<670){
-    if(sx >= 0 && sx < sWidth){
-      int clicked = int(sx / (sWidth / 9.0)) + 1;  
+
+  else{
+    
+    float displayX = 650;
+    float displayY = 250;
+    float buttonSize = 70;
+    float gap = 10;
+
+    if(sx >= displayX && sx < displayX + buttonSize * 3 + gap *2 &&
+       sy >= displayY && sy < displayY + buttonSize * 3 + gap *2){
+
+      int row = (int)((sy - displayY) / (buttonSize + gap));
+      int col = (int)((sx - displayX) / (buttonSize + gap));
+
+      int clicked = row * 3 + col + 1;
       
       if(selectedRow != -1 && selectedCol != -1){
+        
         if(displayBoard[selectedRow][selectedCol] == clicked && displayBoard[selectedRow][selectedCol] != fullBoard[selectedRow][selectedCol]){
           displayBoard[selectedRow][selectedCol] = 0;
         }
@@ -461,6 +479,15 @@ void mousePressedSudoku() {
   }
 }
 
+void giveHint(){
+  if(selectedRow != -1 && selectedCol != -1){
+    displayBoard[selectedRow][selectedCol] = fullBoard[selectedRow][selectedCol];
+    selectedRow = -1;
+    selectedCol = -1;
+  }
+
+}
+
 void keyPressed(){
   if(gameWon && key == ENTER){
     gameWon = false;
@@ -468,6 +495,8 @@ void keyPressed(){
     selectedRow = -1;
     selectedCol = -1;
     errors = 0;
+    startTime = millis();
+    elapsedTime = 0;
     fullBoard = engine.createBoard();
     engine.copyBoard(displayBoard, fullBoard);
     difficulty = "Easy";

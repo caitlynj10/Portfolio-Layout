@@ -3,7 +3,6 @@ PImage gitIM;
 PImage linkedIM;
 PImage emailIM;
 PImage qmIM;
-
 boolean contactOpen;
 
 

@@ -44,13 +44,12 @@ void drawBackground(){
 
 void drawScreen(){
     //Inner Screen
-    fill(250, 125, 182);
+    fill(255, 229, 240);
     stroke(74, 13, 52);
     strokeWeight(4);
     rect(150,50,1200,700,50);
-    fill(255, 229, 240);
-    noStroke();
-    rect(470,60,560,680);
+    
+  
 
 }
 

@@ -259,6 +259,7 @@ class SudokuGame{
         return count;
     }
 
+
     public boolean allNums(int nums){
         if(nums != 9){
             return false;
