@@ -46,7 +46,6 @@ void drawBackground(){
 
 void drawScreen(){
     //Inner Screen
-    fill(250, 125, 182);
     stroke(0);
     noFill();
     strokeWeight(6);
