@@ -153,6 +153,7 @@ void drawControls(){
     
 
     stroke(176, 176, 176);
+    strokeWeight(3);
     line(72.5,535, 72.5, 545);
     line(72.5, 580, 72.5, 590);
     line(45, 562.5, 55, 562.5);

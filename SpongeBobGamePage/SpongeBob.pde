@@ -1,7 +1,7 @@
 class SpongeBob extends Actor {
   int score = 0;
   int level = 1;
-  int gameWidth = 800;
+  int gameWidth = 1200;
   public SpongeBob(float x, float y) {
     super(x, y);
   }

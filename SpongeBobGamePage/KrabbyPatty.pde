@@ -1,7 +1,7 @@
 // KrabbyPatties Class
 
 class KrabbyPatties extends Actor {
-  int gameWidth = 800;
+  int gameWidth = 1200;
   public KrabbyPatties() {
     super();
     x = random(0, gameWidth);        // start at random x
