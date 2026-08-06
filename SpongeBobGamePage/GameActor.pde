@@ -16,7 +16,7 @@ class Actor {
   float velocity = 0;
   float direction = 0;
   float course = 0;
-  int gameWidth = 800;
+  int gameWidth = 1200;
   
   public Actor() {
   }
