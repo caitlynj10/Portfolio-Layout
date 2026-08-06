@@ -1,9 +1,11 @@
 PFont pressStart; 
+PFont arial;
 PImage gitIM;
 PImage linkedIM;
 PImage emailIM;
 PImage qmIM;
 boolean contactOpen;
+int selectedOption = 0;
 
 void setup(){
     size(1500, 800);
@@ -103,8 +105,19 @@ void drawText(){
 
 void drawArrows(){
     stroke(207, 27, 189);
-    triangle(560,415,580,425,560,435);
-    triangle(560,490,580,500,560,510);
+    if(frameCount % 80 < 40){
+        if(selectedOption == 0){
+            triangle(560,415,580,425,560,435);
+
+        }
+        else{
+            triangle(560,490,580,500,560,510);
+
+
+        }
+    }
+    
+    
     noStroke();
 }
 
@@ -124,6 +137,13 @@ void drawControls(){
     rect(60,525,25,75);
     rect(35,550,75,25);
 
+    stroke(176, 176, 176);
+    line(72.5,535, 72.5, 545);
+    line(72.5, 580, 72.5, 590);
+    line(45, 562.5, 55, 562.5);
+    line(90, 562.5, 100, 562.5);
+    stroke(0);
+
     noFill();
     strokeWeight(2);
     circle(72.5,562.5, 100);
@@ -134,6 +154,15 @@ void drawControls(){
     circle(1425,325,30);
     circle(1450,300,30);
     circle(1400,300,30);
+
+    textAlign(CENTER,CENTER);
+    fill(176, 176, 176);
+    arial = createFont("Arial",20);
+    textFont(arial);
+    text("X", 1425, 275);
+    text("A", 1450,300);
+    text("Y", 1400, 300);
+    text("B", 1425, 325);
 
     noFill();
     stroke(0,0,0);
@@ -212,4 +241,16 @@ void mousePressed(){
 
 
 }
+
+  void keyPressed() {
+    if(key == CODED){
+        if(keyCode == DOWN){
+            selectedOption = 1;
+        }
+        if(keyCode == UP){
+            selectedOption = 0;
+        }
+    }
+    
+  }
 
