@@ -6,7 +6,10 @@ PImage emailIM;
 PImage qmIM;
 PImage profPic;
 boolean contactOpen;
-int selectedOption = 0;
+int selectedOption;
+int gameOption;
+boolean inMenu;
+
 
 
 void setup() {
@@ -17,6 +20,9 @@ void setup() {
     qmIM = loadImage("QM.png");
     profPic = loadImage("ProfPic.jpg");
     contactOpen = false;
+    selectedOption = 0;
+    gameOption = 0;
+    inMenu = false;
 
 }
 
@@ -70,17 +76,9 @@ void drawTextandPic(){
     textFont(pressStart);
     textSize(12);
     fill(0,0,0);
-    text("Welcome to my portfolio!",640,400);
-    text("I created this to showcase", 640, 425);
-    text("my two passions: web and", 640,450);
-    text("game design. Learn about", 640, 475);
-    text("what makes me ME through", 640, 500);
-    text("this experience. Play a", 640, 525);
-    text("few games, explore past", 640, 550);
-    text("projects, and learn about", 640, 575);
-    text("my experiences and skills", 640, 600);
-    text("as you enter the gamified", 640, 625);
-    text("world of Caitlyn Jones.", 640, 650);
+    text("Welcome to my portfolio! \nI created this to showcase \nmy two passions: web and\ngame design. Learn about \nwhat makes me ME through \nthis experience. Play a \nfew games, explore past \nprojects, and learn about \nmy experiences and skills \nas you enter the gamified \nworld of Caitlyn Jones.",640,500);
+    
+ 
 
 
     //Profile Information
@@ -129,11 +127,16 @@ void drawTextandPic(){
     
     fill(130, 17, 66); 
     textSize(20);
-    text("EXPLORE SITE", 1000, 450);
-    text("PLAY GAMES", 1000, 500);
-    textSize(10);
-    text("KRABBY PATTY CATCHER", 1020, 530);
-    text("SUDOKU", 1020, 550);
+    text("EXPLORE SITE", 1025, 450);
+    text("PLAY GAMES", 1025, 500);
+    if(inMenu == true){
+        textSize(10);
+        text("KRABBY PATTY CATCHER", 1030, 530);
+        text("SUDOKU", 1030, 550);
+
+    }
+   
+    
 }
 
 void drawControls(){
@@ -232,18 +235,34 @@ void drawControls(){
 }
 
 void drawArrows(){
-    fill(255, 69, 201);
-    stroke(0);
-    strokeWeight(1);
-    if(frameCount % 80 < 40){
-        if(selectedOption == 0){
-            triangle(1005,525,1015,530,1005,535);
-        }
-        else{
-            triangle(1005,545,1015,550,1005,555);
-
-        }
+    fill(0);
+    stroke(207, 27, 189);
+    strokeWeight(2);
+    if(selectedOption == 0 && inMenu == false){
+        triangle(995, 440, 1015, 450, 995, 460);
     }
+    if(selectedOption == 1 && inMenu == false){
+        triangle(995, 490, 1015, 500, 995, 510);
+    }
+    if(selectedOption == 1 && inMenu == true && gameOption == 0){
+        triangle(1015,525,1025,530,1015,535);
+    }
+   
+    if(selectedOption == 1 && inMenu == true && gameOption == 1){
+        triangle(1015,545,1025,550,1015,555);
+    }
+   
+    
+
+    // if(frameCount % 80 < 40){
+    //     if(selectedOption == 0){
+    //         triangle(1015,525,1025,530,1015,535);
+    //     }
+    //     else{
+    //         triangle(1015,545,1025,550,1015,555);
+
+    //     }
+    // }
     
 }
 void drawContactInfo(){
@@ -282,13 +301,34 @@ void mousePressed(){
 
 
   void keyPressed() {
+    
     if(key == CODED){
-        if(keyCode == DOWN){
+        if(keyCode == DOWN && selectedOption == 0){
             selectedOption = 1;
         }
-        if(keyCode == UP){
+        if(keyCode == UP && selectedOption == 1 && inMenu == false){
             selectedOption = 0;
         }
+
+        if(keyCode == RIGHT && selectedOption == 1 && inMenu == false){
+            inMenu = true;
+            gameOption = 0;
+        }
+
+        if(keyCode == UP && selectedOption == 1 && inMenu == true && gameOption == 0){
+            inMenu = false;
+            gameOption = 0;
+        }
+
+        if(keyCode == DOWN && selectedOption == 1 && inMenu == true && gameOption == 0){
+            gameOption = 1;
+        }
+
+        if(keyCode == UP && selectedOption == 1 && inMenu == true && gameOption == 1){
+            gameOption = 0;
+        }
+        
+      
     }
     
   }
