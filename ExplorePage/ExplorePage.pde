@@ -14,6 +14,18 @@ PImage java;
 PImage js;
 PImage python;
 PImage html;
+PImage css;
+PImage r;
+PImage processing;
+PImage rStudio;
+PImage react;
+PImage twine;
+PImage spyder;
+PImage vite;
+PImage p5;
+PImage githubFull;
+PImage google;
+PImage microsoft;
 boolean contactOpen;
 int menuOption; //0 = experience, 1 = games, 2 = projects, 3 = skills
 
@@ -26,10 +38,24 @@ void setup(){
     qmIM = loadImage("QM.png");
     SK = loadImage("Sudoku.png");
     SB = loadImage("SpongeBob.png");
+
     java = loadImage("Java.png");
     js = loadImage("JS.png");
     python = loadImage("python.png");
     html = loadImage("html.png");
+    css = loadImage("css.png");
+    r = loadImage("r.png");
+    processing = loadImage("processing.png");
+    rStudio = loadImage("r studio.png");
+    react = loadImage("react.png");
+    twine = loadImage("twine.png");
+    spyder = loadImage("spyder.png");
+    vite = loadImage("vite.png");
+    p5 = loadImage("p5.png");
+    githubFull = loadImage("githubFull.png");
+    google = loadImage("google.png");
+    microsoft = loadImage("microsoft.png");
+
     contactOpen = false;
     menuOption = 2;
 
@@ -42,9 +68,7 @@ void draw(){
     drawBackground();
     drawScreen();
     drawControls();
-    if(contactOpen){
-        drawContactInfo();
-    }
+    
     if(menuOption == 0){
         drawExperience();
     }
@@ -56,6 +80,10 @@ void draw(){
     }
     else if(menuOption == 3){
         drawSkills();
+    }
+
+    if(contactOpen){
+        drawContactInfo();
     }
     
     
@@ -80,7 +108,18 @@ void drawBackground(){
 
 void drawScreen(){
      //Inner Screen
-    fill(255,255,255);
+    if(menuOption == 0){
+        fill(255);
+    }
+    else if(menuOption == 3){
+        fill(255);
+    }
+    else if(menuOption == 1){
+        fill(0);
+    }
+    else if(menuOption == 2){
+        fill(255, 240, 249);
+    }
     stroke(74, 13, 52);
     strokeWeight(4);
     rect(150,50,1200,700,50);  
@@ -181,32 +220,32 @@ void drawGames(){
     textSize(25);
     fill(207, 14, 165);
     text("GAMES", 625,100);
-    fill(0);  
+    fill(255);  
     text("EXPERIENCE", 325,100);
     if(mouseX > 200 && mouseX < 450 && mouseY > 85 && mouseY < 110){
         fill(207, 14, 165);
         text("EXPERIENCE", 325,100);
 
     }
-    fill(0);
+    fill(255);
     text("PROJECTS", 925,100);
     if(mouseX > 822 && mouseX < 1020 && mouseY > 85 && mouseY < 110){
         fill(207,14,165);
         text("PROJECTS", 925, 100);
     }
-    fill(0);
+    fill(255);
     text("SKILLS", 1225,100);
     if(mouseX > 1150 && mouseX < 1300 && mouseY > 85 && mouseY < 110){
         fill(207, 14, 165);
         text("SKILLS", 1225,100);
     }
-    fill(0);
+    stroke(255);
     line(180,130,1320,130);
     stroke(207, 14, 165);
     strokeWeight(4);
     line(480,130,750,130);
     stroke(0);
-    strokeWeight(8);
+    strokeWeight(4);
     rect(200,150,500,300);
     rect(800,150,500,300);
     image(SK,200,150,500,300);
@@ -218,13 +257,13 @@ void drawGames(){
         fill(207, 14, 165);
         text("SUDOKU", 200, 480);
     }
-    fill(0);
+    fill(255);
     text("KRABBY PATTY CATCHER", 800,480);
     if(mouseX > 800 && mouseY < 1300 && mouseY> 460 && mouseY < 520){
         fill(207, 14, 165);
         text("KRABBY PATTY CATCHER", 800,480);
     }
-    fill(0);
+    fill(255);
     textSize(10);
     text("My favorite game to play in my free time!", 200, 510);
     text("Collect the falling krabby patties!", 800, 510);
@@ -263,98 +302,106 @@ void drawProjects(){
     strokeWeight(4);
     line(750,130,1100,130);
 
-    fill(0);
-    noFill();
+    stroke(207, 14, 165);
     strokeWeight(1);
-    rect(200,150,340,275);
-    rect(200,455,340,275);
-    rect(580,150,340,275);
-    rect(580,455,340,275);
-    rect(960,150,340,275);
-    rect(960,455,340,275);
+    line(210,220, 530, 220);
+    line(210,550, 530, 550);
+    line(590,220, 910, 220);
+    line(590,525, 910, 525);
+    line(970,220, 1290, 220);
+    line(970,525, 1290, 525);
+
+
 
     textAlign(LEFT,CENTER);
-    garamond = createFont("Garamond",25);
+    garamond = createFont("Garamond", 40);
     textFont(garamond);
-    textSize(40);
     fill(0);
     text("Portfolio", 210,170);
     textSize(20);
-    fill(207, 14, 165);
+    fill(133, 133, 133);
     text("Personal Project", 210, 200);
     textSize(25);
     fill(0);
-    text("Home of my frontend and game \ndevelopment skills", 210, 250);
-    fill(133, 133, 133);
-    text("TOOLS: React, p5.js", 210, 330);
-    text("LANGUAGES: JavaScript, CSS, \n                     HTML, Processing", 210, 390);
+    text("Online portfolio showcasing my \nfrontend and game development \nskills, featuring games and \nprojects", 210, 290);
+    fill(207, 14, 165);
+    textSize(15);
+    text("TOOLS: React, p5.js", 210, 385);
+    text("LANGUAGES: JavaScript, CSS, HTML, Processing", 210, 405);
 
+
+    textSize(40);
+    fill(0);
+    text("Smart Pantry", 590,170);
     textSize(20);
-    fill(0);
-    text("AI Horror Story", 590,170);
-    textSize(10);
-    fill(207, 14, 165);
-    text("Digital Games and Gaming Culture", 590, 190);
-    textSize(15);
-    fill(0);
-    text("Interactive horror \nwalkthrough game that \ncommentates on the \ndangers of AI", 590, 260);
     fill(133, 133, 133);
-    text("TOOLS: Twine", 590, 340);
-    text("LANGUAGES: CSS", 590, 380);
+    text("Capstone for Software Engineering", 590, 200);
+    textSize(25);
+    fill(0);
+    text("Created an interactive grocery \ntracking web app that manages \npantry inventory and helps to \nreduce food waste", 590, 290);
+    fill(207, 14, 165);
+    textSize(15);
+    text("TOOLS: React + Vite", 590, 385);
+    text("LANGUAGES: JavaScript, CSS, HTM", 590, 405);
 
-    textSize(18);
+
+    textSize(40);
     fill(0);
-    text("Oscars Predication", 970,170);
-    text("Algorithm", 970,190);
-    textSize(10);
-    fill(207, 14, 165);
-    text("Statistical Modeling ", 970, 210);
-    textSize(15);
-    fill(0);
-    text("Derived a GLM and \nperformed stepwise \nprediction to \ncorrectly predict the \n2025 Best Picture \nwinner", 970, 295);
+    text("AI Horror Story", 970,170);
+    textSize(20);
     fill(133, 133, 133);
-    text("TOOLS: RStudio", 970, 380);
-    text("LANGUAGES: R", 970, 410);
+    text("Digital Games and Gaming Culture", 970, 200);
+    textSize(25);
+    fill(0);
+    text("Interactive horror walkthrough \ngame that serves as a social \ncommentary on the dangers \nof AI", 970, 290);
+    fill(207, 14, 165);
+    textSize(15);
+    text("TOOLS: Twine", 970, 385);
+    text("LANGUAGES: CSS", 970, 405);
 
     textAlign(LEFT,CENTER);
-    textSize(20);
+    textSize(40);
     fill(0);
-    text("Smart Pantry", 210,475);
-    textSize(10);
+    text("Oscars Predication", 210,475);
+    text("Algorithm", 210, 505);
+    textSize(20);
+    fill(133,133,133);
+    text("Statistical Modeling", 210, 535);
+    textSize(22);
+    fill(0);
+    text("Derived a generalized linear model \nand used a stepwise prediction \nalgorithm to correctly predict \nthe 2025 Best Picture winner", 210, 605);
     fill(207, 14, 165);
-    text("Capstone for Software Engineering", 210, 495);
     textSize(15);
-    fill(0);
-    text("Web grocery tracking \napp created in a group \nof 4 to help \nreduce food waste", 210, 550);
-    fill(133, 133, 133);
-    text("TOOLS: React + Vite", 210, 650);
-    text("LANGUAGES: JavaScript, \n            CSS, HTML", 210, 700);
-
+    text("TOOLS: RStudio", 210, 690);
+    text("LANGUAGES: R", 210, 710);
+    
     textAlign(LEFT,CENTER);
-    textSize(20);
+    textSize(40);
     fill(0);
     text("Receipe Book", 590,475);
-    textSize(10);
-    fill(207, 14, 165);
-    text("Fundamentals of Software \nEngineering", 590, 505);
-    textSize(15);
+    textSize(20);
+    fill(133,133,133);
+    text("Fundamentals of Software Engineering", 590, 505);
+    textSize(25);
     fill(0);
-    text("Web based receipe book \nused for searching, \nsaving, and creating \nreceipes all in one \nplace", 590, 580);
-    fill(133, 133, 133);
-    text("TOOLS: React + Vite", 590, 665);
-    text("LANGUAGES: JavaScript, \n            CSS, HTML", 590, 700);
+    text("Web based receipe book that \nallows users to search, save, and \ncreate receipes all in one place", 590, 595);
+    fill(207, 14, 165);
+    textSize(15);
+    text("TOOLS: React + Vite", 590, 690);
+    text("LANGUAGES: JavaScript, CSS, HTML", 590, 710);
 
     textAlign(LEFT,CENTER);
-    textSize(17);
+    textSize(40);
     fill(0);
     text("Diagnosis Predictor", 970,475);
-    textSize(10);
-    fill(207, 14, 165);
-    text("Numerical Methods and \nBig Data", 970, 505);
-    textSize(15);
-    fill(0);
-    text("Given a dataset of \nvarious medical \nsymptoms, my group \nand I used regression \nwith clustering to \npredict patients' \nmedical diagnosis", 970, 595);
+    textSize(20);
     fill(133, 133, 133);
+    text("Numerical Methods and Big Data", 970, 505);
+    textSize(22);
+    fill(0);
+    text("Given a dataset of various medical \nsymptoms, my group and I used \nregression with clustering to predict \npatients' medical diagnosis", 970, 600);
+    fill(207, 14, 165);
+    textSize(15);
     text("TOOLS: Spyder", 970, 700);
     text("LANGUAGES: Python", 970, 720);
 
@@ -391,10 +438,23 @@ void drawSkills(){
     stroke(207, 14, 165);
     strokeWeight(4);
     line(1100,130,1320,130);
+    
     image(java,220,165,250,126);
     image(js,220,306,250,126);
     image(python, 220, 447, 250, 126);
     image(html, 220, 588, 250, 126);
+    image(css, 490, 165, 250, 126);
+    image(r, 490,306,250,126);
+    image(processing, 490, 447, 250, 126);
+    image(githubFull, 490, 588, 250, 126);
+    image(react, 760, 165, 250, 126);
+    image(vite, 760, 306, 250, 126);
+    image(p5, 760, 447, 250, 126);
+    image(rStudio, 760, 588, 250, 126);
+    image(twine, 1030, 165, 250, 126);
+    image(spyder, 1030, 306, 250, 126);
+    image(microsoft, 1030, 447, 250, 126);
+    image(google, 1030, 588, 250, 126);
 
 }
 
