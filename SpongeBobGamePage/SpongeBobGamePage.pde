@@ -40,6 +40,8 @@ void drawBackground(){
     background(74, 8, 39);
     
     //Background
+    stroke(0);
+    strokeWeight(2);
     fill(130, 17, 66);
     rect(10,10,1480,780);
 }
