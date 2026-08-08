@@ -191,11 +191,6 @@ void drawControls(){
     fill(23, 23, 23);
     circle(50,750,20);
 
-    stroke(0,0,0);
-    line(1400,50,1450,50);
-    line(1400,60,1450,60);
-    line(1400,70,1450,70);
-
     noFill();
     stroke(0,0,0);
     ellipse(735,770,20,20);
@@ -203,9 +198,21 @@ void drawControls(){
     ellipse(765,770,20,20);
     fill(0);
     ellipse(765,770,10,10);
+
+    fill(250, 125, 182);
+    ellipse(1300,760,10,10);
+    ellipse(1300,780,10,10);
+
+    ellipse(1300,760,8,8);
+    ellipse(1300,780,8,8);
+    textAlign(LEFT,CENTER);
+    textSize(15);
+    fill(0);
+    text("Contact", 1310, 760);
+    text("Home", 1310, 780);
     
-    
-    image(qmIM, 1285,755,30,30);
+    stroke(0,0,0);
+    image(qmIM,1450,20, 30,30);
 
     
 
@@ -238,7 +245,7 @@ void drawContactInfo(){
 }
 
 void mousePressed(){
-    if(mouseX > 1285 && mouseX < 1315 && mouseY > 755 && mouseY < 785){
+    if(mouseX > 1295 && mouseX < 1305 && mouseY > 755 && mouseY < 765){
         contactOpen = !contactOpen;
     }
 
