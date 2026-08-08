@@ -131,8 +131,8 @@ void drawTextandPic(){
     text("PLAY GAMES", 1025, 500);
     if(inMenu == true){
         textSize(10);
-        text("KRABBY PATTY CATCHER", 1030, 530);
-        text("SUDOKU", 1030, 550);
+        text("KRABBY PATTY CATCHER", 1035, 530);
+        text("SUDOKU", 1035, 550);
 
     }
    
@@ -238,31 +238,29 @@ void drawArrows(){
     fill(0);
     stroke(207, 27, 189);
     strokeWeight(2);
-    if(selectedOption == 0 && inMenu == false){
-        triangle(995, 440, 1015, 450, 995, 460);
-    }
-    if(selectedOption == 1 && inMenu == false){
-        triangle(995, 490, 1015, 500, 995, 510);
+    if(frameCount % 80 < 40){
+        if(selectedOption == 0 && inMenu == false){
+            triangle(995, 440, 1015, 450, 995, 460);
+        }
+        if(selectedOption == 1 && inMenu == false){
+            triangle(995, 490, 1015, 500, 995, 510);
+        }
+        if(selectedOption == 1 && inMenu == true && gameOption == 0){
+            triangle(1020,525,1030,530,1020,535);
+        }
+    
+        if(selectedOption == 1 && inMenu == true && gameOption == 1){
+            triangle(1020,545,1030,550,1020,555);
+        }
+    
     }
     if(selectedOption == 1 && inMenu == true && gameOption == 0){
-        triangle(1015,525,1025,530,1015,535);
+            triangle(995, 495, 1005, 510,1015, 495);
     }
-   
-    if(selectedOption == 1 && inMenu == true && gameOption == 1){
-        triangle(1015,545,1025,550,1015,555);
+    if(selectedOption == 1 && inMenu == true && gameOption == 1 ){
+            triangle(995, 495, 1005, 510,1015, 495);
     }
-   
     
-
-    // if(frameCount % 80 < 40){
-    //     if(selectedOption == 0){
-    //         triangle(1015,525,1025,530,1015,535);
-    //     }
-    //     else{
-    //         triangle(1015,545,1025,550,1015,555);
-
-    //     }
-    // }
     
 }
 void drawContactInfo(){
